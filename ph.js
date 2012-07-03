@@ -23,7 +23,7 @@ function process() {
 	   	loadSite(address, process);
 	}else {
 		runOnAll();
-		//phantom.exit();
+		phantom.exit();
 	}
 }
 
@@ -79,7 +79,8 @@ function loadSite(address, callback) {
 
 function runOnAll() {
 	for(var z=0; z < pages.length; z++){
-		console.log('Number of conected: ' +  z);
+		console.log('ss.rpc call: ' + z);
+		
 		pages[z].evaluate(function() {
 			var ssAppName = 'demo';
 			var ssFuncToTest = ['LoadTest'];
