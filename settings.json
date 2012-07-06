@@ -1,0 +1,9 @@
+{
+    "ssCalls": [
+        {
+            "ssCall": "demo.LoadTest",
+            "variable": [],
+            "nrRuns": 1
+        }
+    ]
+}

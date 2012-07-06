@@ -1,11 +1,11 @@
 #!/bin/bash
-echo "Runing load test on:" $1 " with " $2 " connections and " $3 " clients"
+echo "Runing load test on:" $1 " with " $2 " connections and " $3 " processes"
 
 COUNTER=0
 rm data.ph
 rm finichetInstances.ph
 while [  $COUNTER -lt $3 ]; do
-             phantomjs ph.js $1 $2 $3 &
+             phantomjs ph.js $1 $2 $3 $COUNTER &
              let COUNTER=COUNTER+1 
          done
          wait
