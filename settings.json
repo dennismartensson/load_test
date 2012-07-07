@@ -1,16 +1,18 @@
+/*
 {
     "calls": [
 
         {
-            "call": "ferret",
+            "call": "demo.LoadTest",
             "variable": [],
             "nrRuns": 1
         },
         {
-            "call": "ferret",
+            "call": "demo.LoadTest",
             "variable": [],
             "nrRuns": 1
         }
         
     ]
 }
+*/
