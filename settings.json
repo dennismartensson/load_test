@@ -1,9 +1,16 @@
 {
-    "ssCalls": [
+    "calls": [
+
         {
-            "ssCall": "demo.LoadTest",
+            "call": "ferret",
+            "variable": [],
+            "nrRuns": 1
+        },
+        {
+            "call": "ferret",
             "variable": [],
             "nrRuns": 1
         }
+        
     ]
 }

@@ -74,7 +74,7 @@ function loadSite(address, callback) {
 		nrOfMessages--;
 		socketTimes.push(time);
 
-		if(nrOfMessages == 0 && haveSentAllMessages){
+		if (nrOfMessages == 0 && haveSentAllMessages) {
 			initialKillProcess();
 		}
 	};
@@ -82,24 +82,24 @@ function loadSite(address, callback) {
 	page.onError = function(msg, trace) {
 		numberOfErrors++;
 
-		if(msg == "ReferenceError: Can't find variable: ss"){
+		if (msg == "ReferenceError: Can't find variable: ss") {
 			nrOfMessages--;
 		}
 
-		console.log(msg);
+		console.log('onError: ' +msg);
 		trace.forEach(function(item) {
 			console.log('  ', item.file, ':', item.line);
 		})
 	}
 
 	page.onConsoleMessage = function(msg) {
-		console.log(msg);
-		if(msg == "Connection down :-(") {
+		console.log('onConsoleMessage: ' +msg);
+		if (msg == "Connection down :-(") {
 			initialKillProcess();
 		}
 	};
 
-	/*
+	/* Remove comment if you want to see all the requests and responses for all the clients during the run
 	page.onResourceRequested = function (request) {
 	   	console.log('Request ' + JSON.stringify(request, undefined, 4));
 	};
@@ -111,29 +111,43 @@ function loadSite(address, callback) {
 }
 
 function runOnAll() {
-	for (var z = 0; z < pages.length; z++) {
-		for (var x in callsArray) {
+	try {
+		if(!callsArray.length) {
+			haveSentAllMessages = true;
+			initialKillProcess();
+		}
+		for (var z = 0; z < pages.length; z++) {
+			for (var x in callsArray) {
 
-			var call = callsArray[x];
-			var variable = call.variable;
-			var ssNrRuns = call.nrRuns;
+				var call = callsArray[x];
+				var variable = call.variable;
+				var nrRuns = call.nrRuns;
 
-			if (variable != '') {
-				variable = ', ' + variable;
-			}
+				if (variable != '') {
+					variable = ', "' + variable + '"';
+				}
 
-			var t = Date.now();
-			var evaFunc = 'function() {ss.rpc("' + call.ssCall + '"' + variable + ', function(data) { callPhantom(data, '+t+')});}'
+				var t = Date.now();
 
-			for (var i = 0; i < ssNrRuns; i++) {
-				console.log('Running evaluate '+i+' on client ' + clinetNr);
-				pages[z].evaluate(evaFunc);
-				nrOfMessages++;
+
+				//Edit/Add frameworks 
+
+				//SocketStream
+				var evaFunc = 'function() {ss.rpc("' + call.call + '"' + variable + ', function(data) { callPhantom(data, ' + t + ')});}';
+				//Socket.io
+				//var evaFunc = 'function() {socket.emit("'+call.call+'", function (data) { callPhantom(data, '+ t +');});}';
+				
+				for (var i = 0; i < nrRuns; i++) {
+					console.log('Running evaluate ' + i + ' on client ' + clinetNr);
+					pages[z].evaluate(evaFunc);
+					nrOfMessages++;
+				}
 			}
 		}
+	} catch (e) {
+		console.log('runOnAll: ' +e);
 	}
 	haveSentAllMessages = true;
-	//timoutAllMessages = setTimeout(initialKillProcess(), 120000);
 }
 
 function initialKillProcess() {
@@ -154,19 +168,23 @@ function redyToKill() {
 
 
 function getRunningProceses() {
-	var fg = fs.read(workingDirectory + finichetFile);
-	var array = fg.toString().split("\n");
-	return array.length - 1
+	try {
+		var fg = fs.read(workingDirectory + finichetFile);
+		var array = fg.toString().split("\n");
+		return array.length - 1
+	} catch (e) {
+		console.log('getRunningProceses:' +e);
+	}
 }
 
 
 function writeDataFile() {
 	try {
 		var fd = fs.open(workingDirectory + dataFile, 'a');
-		fd.writeLine('[' + resTimes + '];' + numberOfErrors + ';' + clinetNr +';' + '[' + socketTimes + ']');
+		fd.writeLine('[' + resTimes + '];' + numberOfErrors + ';' + clinetNr + ';' + '[' + socketTimes + ']');
 		fd.close();
 	} catch (e) {
-		console.log(e);
+		console.log('writeDataFile: ' +e);
 	}
 }
 
@@ -177,21 +195,24 @@ function writeFinichetFile() {
 		ff.writeLine('Done');
 		ff.close();
 	} catch (e) {
-		console.log(e);
+		console.log('writeFinichetFile: ' +e);
 	}
 }
 
 function parseJSON() {
 
-	var fj = fs.read(workingDirectory + settingsFiles);
-	var readFromFile = fj.toString();
+	try {
+		var fj = fs.read(workingDirectory + settingsFiles);
+		var readFromFile = fj.toString();
+		var jsonAppCall = JSON.parse(readFromFile);
+		var jsonFunc = jsonAppCall.calls;
 
-	var jsonSsAppCall = JSON.parse(readFromFile);
-	var jsonSsFunc = jsonSsAppCall.ssCalls;
-
-	for (var i in jsonSsFunc) {
-		if (jsonSsFunc.hasOwnProperty(i) && !isNaN(+i)) {
-			callsArray[+i] = jsonSsFunc[i];
+		for (var i in jsonFunc) {
+			if (jsonFunc.hasOwnProperty(i) && !isNaN(+i)) {
+				callsArray[+i] = jsonFunc[i];
+			}
 		}
+	} catch (e) {
+		console.log('parseJSON: ' +e);
 	}
 }
