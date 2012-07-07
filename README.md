@@ -1,4 +1,4 @@
-#Socket test tool
+#WebSocket test tool
 
 This is a tool to test you socket application, Its configured to run on SocketStream but can with a very small effort be edited to run on different frameworks. It works by letting you create multiple instances of an headless Webkit browser Phantomjs and in every instance you can create multiple connections. 
 
