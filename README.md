@@ -41,7 +41,7 @@ B: Try too run the build.sh script to install Node.js and Phantomjs skip to step
 
 So this tool have some settings that you can control, Fist of in the settings.json you can in json define what function should run on the sockets with what data and how may times, You can define multiple functions to run.
 
-When you down load this tool it is configured to test SocketStream applications, But it contains some examples on how to run it on some other frameworks and you can easily add the framework you want to test. 
+When you download this tool it is configured to test SocketStream applications, But it contains some examples on how to run it on some other frameworks and you can easily add the framework you want to test. 
 
 #### How to edit/add frameworks.
 
