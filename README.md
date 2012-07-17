@@ -13,29 +13,29 @@ The goal of this tool is to help you test how your websocket applications stands
 A: Install every thing manual.
 B: Try too run the build.sh script to install Node.js and Phantomjs skip to step 3 and do 1B when you get there.
 
-1A. I use Phantomjs as the headless webkit browser so you will have to install it, Instructions on how to install it can be found [here](http://code.google.com/p/phantomjs/wiki/Installation).
+1A I use Phantomjs as the headless webkit browser so you will have to install it, Instructions on how to install it can be found [here](http://code.google.com/p/phantomjs/wiki/Installation).
 
-2A. I use node for some of the data analysis so you will have to have node installed, Instructions on how to install it can be found [here](http://nodejs.org/#download).
+2A I use node for some of the data analysis so you will have to have node installed, Instructions on how to install it can be found [here](http://nodejs.org/#download).
 
-3. Download this project from Github.
+3 Download this project from Github.
 
-4. Place the files in a good location in your computer.
+4 Place the files in a good location in your computer.
 
-5. cd in to the directions where you placed the downloaded files.
+5 cd in to the directions where you placed the downloaded files.
 
-6. Make the bash scripts executable by running " chmod 711 LoadTest.sh " and " chmod 711 build.sh " this make you able to run the bash script.
+6 Make the bash scripts executable by running " chmod 711 LoadTest.sh " and " chmod 711 build.sh " this make you able to run the bash script.
 
-1B. Run ./build.sh to install Phantomjs and Node.js.
+1B Run ./build.sh to install Phantomjs and Node.js.
 
-7. Open .LoadTest.sh in a text editor and set the LOADTESTPATH="/Users/dennis/developing/hacker_school/socketstream/load_test" to the path were you have the downloaded files.
+7 Open .LoadTest.sh in a text editor and set the LOADTESTPATH="/Users/dennis/developing/hacker_school/socketstream/load_test" to the path were you have the downloaded files.
 
-8. Add the LoadTest.sh to your path so you can run the script from any directory.
+8 Add the LoadTest.sh to your path so you can run the script from any directory.
 
-9. Run the test by calling LoadTest.sh URL connections clients example "LoadTest.sh http://localhost:8000 10 10"
+9 Run the test by calling LoadTest.sh URL connections clients example "LoadTest.sh http://localhost:8000 10 10"
 
-10. You will see an output in the terminal that are explaining what are going on right now in the test run.
+10 You will see an output in the terminal that are explaining what are going on right now in the test run.
 
-11. When the test is completed the tool will open a html file in your default browser that has a summery of data collected during testing. 
+11 When the test is completed the tool will open a html file in your default browser that has a summery of data collected during testing. 
 
 ### How to edit settings. 
 
