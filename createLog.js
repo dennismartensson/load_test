@@ -1,5 +1,4 @@
-var lazy = require("lazy"),
-	fs = require("fs");
+var fs = require("fs");
 
 
 var dataFile = '/data.ph'

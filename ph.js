@@ -32,6 +32,7 @@ if (phantom.args.length === 0) {
 	var totalNrConected = nrConected;
 	var totalNrOfClients = phantom.args[2];
 	var clinetNr = phantom.args[3];
+	var loadTestPath = phantom.args[4];
 	parseJSON();
 	process();
 }
@@ -169,7 +170,7 @@ function redyToKill() {
 
 function getRunningProceses() {
 	try {
-		var fg = fs.read(workingDirectory + finichetFile);
+		var fg = fs.read(loadTestPath + finichetFile);
 		var array = fg.toString().split("\n");
 		return array.length - 1
 	} catch (e) {
@@ -180,7 +181,7 @@ function getRunningProceses() {
 
 function writeDataFile() {
 	try {
-		var fd = fs.open(workingDirectory + dataFile, 'a');
+		var fd = fs.open(loadTestPath + dataFile, 'a');
 		fd.writeLine('[' + resTimes + '];' + numberOfErrors + ';' + clinetNr + ';' + '[' + socketTimes + ']');
 		fd.close();
 	} catch (e) {
@@ -191,7 +192,7 @@ function writeDataFile() {
 
 function writeFinichetFile() {
 	try {
-		var ff = fs.open(workingDirectory + finichetFile, 'a');
+		var ff = fs.open(loadTestPath + finichetFile, 'a');
 		ff.writeLine('Done');
 		ff.close();
 	} catch (e) {
@@ -202,7 +203,7 @@ function writeFinichetFile() {
 function parseJSON() {
 
 	try {
-		var fj = fs.read(workingDirectory + settingsFiles);
+		var fj = fs.read(loadTestPath + settingsFiles);
 		var readFromFile = fj.toString();
 		var jsonAppCall = JSON.parse(readFromFile);
 		var jsonFunc = jsonAppCall.calls;
